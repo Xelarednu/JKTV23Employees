@@ -1,6 +1,12 @@
 package org.example;
 
 import org.example.intrface.Input;
+import org.example.intrface.employeeProvider;
+import org.example.intrface.impl.inputEmployee;
+import org.example.model.Address;
+import org.example.model.Employee;
+import org.example.model.Person;
+import org.example.services.EmployeeService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,13 +38,8 @@ class AppTest {
 
     @Test
     public void testRunExit(){
-//        String input = "0\n";
-//        InputStream in = new ByteArrayInputStream(input.getBytes());
-//        System.setIn(in);
-//        ByteArrayOutputStream out = new ByteArrayOutputStream();
-//        System.setOut(new PrintStream(out));
         when(mockInput.nextLine()).thenReturn("0");
-        App app = new App(mockInput);
+        App app = new App(mockInput, new EmployeeService(new inputEmployee(), mockInput));
         app.run();
         String actualOut = mockOut.toString();
         System.setOut(new PrintStream(defaultOut));
@@ -47,19 +48,18 @@ class AppTest {
         assertTrue(actualOut.contains(expectedOutFragment));
     }
 
-//    @Test
-//    public void testRunAdd() {
-//        when(inputMock.nextLine()).thenReturn("1", "Ivan", "Ivanov", "Director", "3000", "0");
-//        String input = "1\n";
-//        InputStream in = new ByteArrayInputStream(input.getBytes());
-//        System.setIn(in);
-//        ByteArrayOutputStream out = new ByteArrayOutputStream();
-//        System.setOut(new PrintStream(out));
-//
-//        App app = new App(inputMock);
-//        app.run();
-//
-//        String output = out.toString();
-//        assertTrue(output.contains("Adding new user"));
-//    }
+    @Test
+    public void testRunAdd() {
+        when(mockInput.nextLine()).thenReturn("1","0");
+        inputEmployee inputEmployeeMock = mock(inputEmployee.class);
+        when(inputEmployeeMock.addEmployee(mockInput)).thenReturn(new Employee("Director", "3000", new Person("Aleksandr", "Drozdik", new Address("Narva", "Kangelaste", "8", "85"))));
+        App app = new App(mockInput, new EmployeeService(inputEmployeeMock, mockInput));
+        app.run();
+
+        String actualOut = mockOut.toString();
+        String firstExpectedOutFragment = "New employee added";
+        String secondExpectedOutFragment = "Goodbye!";
+        assertTrue(actualOut.contains(firstExpectedOutFragment));
+        assertTrue(actualOut.contains(secondExpectedOutFragment));
+    }
 }

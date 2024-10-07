@@ -1,14 +1,19 @@
 package org.example;
 import org.example.intrface.impl.ConsoleInput;
 import org.example.intrface.Input;
+import org.example.model.Employee;
+import org.example.services.EmployeeService;
 
 import java.util.Scanner;
 
 public class App {
+    public static Employee [] employees = new Employee[100];
+    private final EmployeeService employeeService;
     private Input input;
 
-    public App(Input input) {
+    public App(Input input, EmployeeService employeeService) {
         this.input = input;
+        this.employeeService = employeeService;
     }
 
     public void run() {
@@ -18,7 +23,8 @@ public class App {
 
         do {
             System.out.println("0. Exit program");
-            System.out.println("1. Add user");
+            System.out.println("1. Add employee");
+            System.out.println("2. Show all employees");
             System.out.print("Enter option number: ");
 
             option = Integer.parseInt(input.nextLine());
@@ -29,8 +35,13 @@ public class App {
                     repeat = false;
                     break;
                 case 1:
-                    System.out.println("Adding new user");
-                    repeat = false;
+                    if(employeeService.createEmployee(input)) {
+                        System.out.println("New employee added");
+                    };
+//                    repeat = false;
+                    break;
+                case 2:
+                    employeeService.printEmployees();
                     break;
                 default:
                     System.out.println("Wrong choice buddy, you should think twice next time");
