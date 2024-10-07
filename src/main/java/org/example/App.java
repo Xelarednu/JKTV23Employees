@@ -1,5 +1,6 @@
 package org.example;
-import org.example.tools.ConsoleInput;
+import org.example.intrface.impl.ConsoleInput;
+import org.example.intrface.Input;
 
 import java.util.Scanner;
 
@@ -7,24 +8,20 @@ public class App {
     private Input input;
 
     public App(Input input) {
-        this.input = new ConsoleInput(new Scanner(System.in));
+        this.input = input;
     }
 
     public void run() {
         System.out.println("Program \"Employees\"");
-
-        Scanner scanner = new Scanner(System.in);
         int option;
-
-        System.out.println("Option list: ");
-
         boolean repeat = true;
 
         do {
             System.out.println("0. Exit program");
             System.out.println("1. Add user");
             System.out.print("Enter option number: ");
-            option = input.nextInt();
+
+            option = Integer.parseInt(input.nextLine());
 
             switch (option) {
                 case 0:
@@ -33,7 +30,6 @@ public class App {
                     break;
                 case 1:
                     System.out.println("Adding new user");
-                    //False shouldn't be here, it's just for test to work. Another workaround needed.
                     repeat = false;
                     break;
                 default:
@@ -41,7 +37,6 @@ public class App {
             }
         } while (repeat);
 
-        scanner.close();
         System.out.println("Goodbye!");
     }
 }

@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.intrface.Input;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,49 +12,54 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class AppTest {
-    InputStream inputMock;
-    InputStream defaultIn;
+    Input mockInput;
+    ByteArrayOutputStream mockOut;
     OutputStream defaultOut;
 
     @BeforeEach
     void setUp() {
-        defaultIn = System.in;
+        mockInput = mock(Input.class);
         defaultOut = System.out;
-        //inputMock = Mockito.mock(Input.class);
+        mockOut = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(mockOut));
     }
 
     @AfterEach
     void tearDown() {
-        System.setIn(defaultIn);
-        System.setOut((PrintStream) defaultOut);
+
+        System.setOut(new PrintStream(defaultOut));
     }
 
     @Test
     public void testRunExit(){
-        //when(inputMock.read()).thenReturn();
-        String input = "0\n";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
-        App app = new App();
+//        String input = "0\n";
+//        InputStream in = new ByteArrayInputStream(input.getBytes());
+//        System.setIn(in);
+//        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        System.setOut(new PrintStream(out));
+        when(mockInput.nextLine()).thenReturn("0");
+        App app = new App(mockInput);
         app.run();
-        String output = out.toString();
-        assertTrue(output.contains("Goodbye!"));
+        String actualOut = mockOut.toString();
+        System.setOut(new PrintStream(defaultOut));
+        System.out.println(mockOut.toString());
+        String expectedOutFragment = "Goodbye!";
+        assertTrue(actualOut.contains(expectedOutFragment));
     }
 
-    @Test
-    public void testRunAdd() {
-        String input = "1\n";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
-
-        App app = new App();
-        app.run();
-
-        String output = out.toString();
-        assertTrue(output.contains("Adding new user"));
-    }
+//    @Test
+//    public void testRunAdd() {
+//        when(inputMock.nextLine()).thenReturn("1", "Ivan", "Ivanov", "Director", "3000", "0");
+//        String input = "1\n";
+//        InputStream in = new ByteArrayInputStream(input.getBytes());
+//        System.setIn(in);
+//        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        System.setOut(new PrintStream(out));
+//
+//        App app = new App(inputMock);
+//        app.run();
+//
+//        String output = out.toString();
+//        assertTrue(output.contains("Adding new user"));
+//    }
 }

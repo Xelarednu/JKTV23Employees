@@ -1,6 +1,5 @@
-package org.example;
+package org.example.intrface;
 
 public interface Input {
-    public int nextInt();
     public String nextLine();
 }
