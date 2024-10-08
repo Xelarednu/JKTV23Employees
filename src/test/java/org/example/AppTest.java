@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.intrface.Input;
 import org.example.intrface.employeeProvider;
+import org.example.intrface.impl.EmployeeFileService;
 import org.example.intrface.impl.inputEmployee;
 import org.example.model.Address;
 import org.example.model.Employee;
@@ -39,7 +40,7 @@ class AppTest {
     @Test
     public void testRunExit(){
         when(mockInput.nextLine()).thenReturn("0");
-        App app = new App(mockInput, new EmployeeService(new inputEmployee(), mockInput));
+        //App app = new App(mockInput, new EmployeeService(new inputEmployee(), mockInput, new EmployeeFileService()));
         app.run();
         String actualOut = mockOut.toString();
         System.setOut(new PrintStream(defaultOut));
@@ -53,7 +54,7 @@ class AppTest {
         when(mockInput.nextLine()).thenReturn("1","0");
         inputEmployee inputEmployeeMock = mock(inputEmployee.class);
         when(inputEmployeeMock.addEmployee(mockInput)).thenReturn(new Employee("Director", "3000", new Person("Aleksandr", "Drozdik", new Address("Narva", "Kangelaste", "8", "85"))));
-        App app = new App(mockInput, new EmployeeService(inputEmployeeMock, mockInput));
+        //App app = new App(mockInput, new EmployeeService(inputEmployeeMock, mockInput, new EmployeeFileService()));
         app.run();
 
         String actualOut = mockOut.toString();

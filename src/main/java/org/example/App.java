@@ -1,4 +1,5 @@
 package org.example;
+import org.example.intrface.EmployeeRepos;
 import org.example.intrface.impl.ConsoleInput;
 import org.example.intrface.Input;
 import org.example.model.Employee;
@@ -7,13 +8,16 @@ import org.example.services.EmployeeService;
 import java.util.Scanner;
 
 public class App {
-    public static Employee [] employees = new Employee[100];
+    public static Employee [] employees;
     private final EmployeeService employeeService;
+    private final EmployeeRepos employeeRepos;
     private Input input;
 
-    public App(Input input, EmployeeService employeeService) {
+    public App(Input input, EmployeeService employeeService, EmployeeRepos employeeRepos) {
         this.input = input;
         this.employeeService = employeeService;
+        this.employeeRepos = employeeRepos;
+        employees = employeeRepos.loadEmployee();
     }
 
     public void run() {
@@ -35,10 +39,9 @@ public class App {
                     repeat = false;
                     break;
                 case 1:
-                    if(employeeService.createEmployee(input)) {
+                    if(employeeService.createEmployee(input, employeeRepos)) {
                         System.out.println("New employee added");
-                    };
-//                    repeat = false;
+                    }
                     break;
                 case 2:
                     employeeService.printEmployees();

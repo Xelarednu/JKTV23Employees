@@ -1,11 +1,10 @@
 package org.example.services;
 
 import org.example.App;
+import org.example.intrface.EmployeeRepos;
 import org.example.intrface.Input;
 import org.example.intrface.employeeProvider;
-import org.example.model.Address;
 import org.example.model.Employee;
-import org.example.model.Person;
 
 public class EmployeeService {
     private final org.example.intrface.employeeProvider employeeProvider;
@@ -16,11 +15,12 @@ public class EmployeeService {
         this.employeeProvider = employeeProvider;
     }
 
-    public boolean createEmployee(Input input) {
+    public boolean createEmployee(Input input, EmployeeRepos employeeRepos) {
         Employee employee = employeeProvider.addEmployee(input);
         for (int i = 0; i < App.employees.length; i++) {
             if (App.employees[i] == null) {
                 App.employees[i] = employee;
+                employeeRepos.saveEmployee(App.employees);
                 return true;
             }
         }
