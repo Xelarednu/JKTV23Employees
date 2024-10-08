@@ -1,4 +1,5 @@
 package org.example.intrface.impl;
+import org.example.App;
 import org.example.intrface.Input;
 import org.example.intrface.employeeProvider;
 import org.example.model.Address;
@@ -42,5 +43,14 @@ public class inputEmployee implements employeeProvider {
         employee.setPerson(person);
 
         return  employee;
+    }
+
+    public void listEmployees() {
+        for (int i = 0; i < App.employees.length; i++) {
+            Employee employee = App.employees[i];
+            if (employee != null) {
+                System.out.printf("%d. %s %s%n %s%n %s%n", i + 1, employee.getPerson().getFirstName(), employee.getPerson().getLastName(), employee.getPosition(), employee.getSalary());
+            }
+        }
     }
 }

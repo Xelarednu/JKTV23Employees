@@ -5,4 +5,5 @@ import org.example.model.Employee;
 public interface employeeProvider {
     Employee addEmployee(Input input);
 
+    void listEmployees();
 }

@@ -25,79 +25,25 @@ public class EmployeeService {
             }
         }
         return false;
-//        Employee employee = new Employee();
-//        Person person = new Person();
-//        Address address = new Address();
-//
-//        person.setAddress(address);
-//        employee.setPerson(person);
+    }
+
+    public void printEmployees () {
+        employeeProvider.listEmployees();
     }
 
     //print Employees start
     //#Tried-to-figure-out-myself-variant
-    public void printEmployees () {
-        for (int i = 0; i < App.employees.length; i++) {
-
-            if (App.employees[i] != null) {
-                System.out.println(App.employees[i]);
-            }
-        }
-    }
-    //------------------------------
-
-    //One variant
-//    public void printEmployees(Employee[] employees) {
-//        for (Employee employee : employees) {
-//            System.out.println("Employee ID: " + employee.getId());
-//            System.out.println("Position: " + employee.getPosition());
-//            System.out.println("Salary: " + employee.getSalary());
+//    public void printEmployees () {
+//        for (int i = 0; i < App.employees.length; i++) {
+//            Employee employee = App.employees[i];
 //
-//            Person person = employee.getPerson();
-//            if (person != null) {
-//                System.out.println("Person ID: " + person.getId());
-//                System.out.println("First Name: " + person.getFirstName());
-//                System.out.println("Last Name: " + person.getLastName());
+//            if (App.employees[i] != null) {
+//                System.out.printf("Position: %s" , employee.getPosition());
+//                System.out.printf("Salary: %s", employee.getSalary());
 //
-//                Address address = person.getAddress();
-//                if (address != null) {
-//                    System.out.println("Address ID: " + address.getId());
-//                    System.out.println("City: " + address.getCity());
-//                    System.out.println("Street: " + address.getStreet());
-//                    System.out.println("House Number: " + address.getHouseNumber());
-//                    System.out.println("Apartment Number: " + address.getApartmentNumber());
-//                }
+//                System.out.printf("First name: %s", employee.getPerson().getFirstName());
+//                System.out.printf("Last name: %s", employee.getPerson().getLastName());
 //            }
-//            System.out.println(); // Print a blank line for better readability
 //        }
 //    }
-    //------------------------------
-
-    //Another variant
-//    public void printEmployees(Employee[] employees) {
-//        for (Employee employee : employees) {
-//            System.out.println("Employee ID: " + employee.id);
-//            System.out.println("Position: " + employee.position);
-//            System.out.println("Salary: " + employee.salary);
-//
-//            Person person = employee.person;
-//            if (person != null) {
-//                System.out.println("Person ID: " + person.id);
-//                System.out.println("First Name: " + person.firstName);
-//                System.out.println("Last Name: " + person.lastName);
-//
-//                Address address = person.address;
-//                if (address != null) {
-//                    System.out.println("Address ID: " + address.id);
-//                    System.out.println("City: " + address.city);
-//                    System.out.println("Street: " + address.street);
-//                    System.out.println("House Number: " + address.houseNumber);
-//                    System.out.println("Apartment Number: " + address.apartmentNumber);
-//                }
-//            }
-//            System.out.println(); // Print a blank line for better readability
-//        }
-//    }
-    //------------------------------
-
-
 }
